@@ -128,10 +128,18 @@
     }
 
     .magnet-wrap {
-      display: inline-block;
-      transition: transform 0.3s ease-out;
-      will-change: transform;
-    }
+  display: inline-block;
+  will-change: transform;
+}
+
+@media (max-width: 640px) {
+  .magnet-wrap {
+    transform: none !important;
+  }
+  #magnetPortrait img {
+    max-width: 260px;
+  }
+}
 
     .skill-pill {
       border: 1px solid rgba(215, 226, 234, 0.3);
@@ -610,26 +618,27 @@
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
     // Magnetic effect for portrait
-    const magnet = document.getElementById('magnetPortrait');
-    if (magnet) {
-      document.addEventListener('mousemove', (e) => {
-        const rect = magnet.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const distX = e.clientX - centerX;
-        const distY = e.clientY - centerY;
-        const dist = Math.sqrt(distX * distX + distY * distY);
-        const maxDist = Math.max(rect.width, rect.height) / 2 + 150;
-        if (dist < maxDist) {
-          magnet.style.transform = `translate3d(${distX / 3}px, ${distY / 3}px, 0px)`;
-        } else {
-          magnet.style.transform = 'translate3d(0px, 0px, 0px)';
-        }
-      });
-      document.addEventListener('mouseleave', () => {
-        magnet.style.transform = 'translate3d(0px, 0px, 0px)';
-      });
+    // Magnetic effect for portrait - SIRF DESKTOP PE
+const magnet = document.getElementById('magnetPortrait');
+if (magnet && window.innerWidth > 640) {
+  document.addEventListener('mousemove', (e) => {
+    const rect = magnet.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const distX = e.clientX - centerX;
+    const distY = e.clientY - centerY;
+    const dist = Math.sqrt(distX * distX + distY * distY);
+    const maxDist = Math.max(rect.width, rect.height) / 2 + 150;
+    if (dist < maxDist) {
+      magnet.style.transform = `translate3d(${distX / 3}px, ${distY / 3}px, 0px)`;
+    } else {
+      magnet.style.transform = 'translate3d(0px, 0px, 0px)';
     }
+  });
+  document.addEventListener('mouseleave', () => {
+    magnet.style.transform = 'translate3d(0px, 0px, 0px)';
+  });
+}
   </script>
 </body>
 </html>
